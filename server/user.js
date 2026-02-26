@@ -3,30 +3,34 @@
     let userSchema = mongoose.Schema({
         
 
-        userName:{
+        username:{
               type:String, 
                required : true 
 
         } , 
+ 
 
-         paassword:
+          email:{
+ type:String , 
+  required: true 
+
+          } ,
+         password:
          {
- type: String, 
- required : true  
+          type: String, 
+         required : true  
   
-  
-
-
          }  , 
           
- role:
-  {
-     type: String , 
+//  role:
+//   {
+//      type: String , 
 
-      enum:['admin' ,'Marchent' , 'Buyer'] , 
-       default:"buyer"
-  }
+//       enum:['admin' ,'Marchent' , 'Buyer'] , 
+//        default:"buyer"
+//   }
        
     }) 
 
-    let User = mongoose.model('user' )
+    let User = mongoose.model('user'   ,userSchema ) 
+       module.exports= User

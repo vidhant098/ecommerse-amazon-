@@ -3,6 +3,7 @@ let express = require('express') ;
   
 
  let mongoose = require('mongoose') ; 
+const User = require('./user');
 
 
 
@@ -12,15 +13,36 @@ let express = require('express') ;
   })
 
   
+   app.use(express.json()) ;
 
 
+    app.get('/register' ,  async (req , res )=>{ 
 
-    app.get('register' , (req , res )=>{
-       
+
+       let { username , email , password } = req.body  ; 
+        console.log(username   , email , password ) 
+
+         let  user = await User.findOne({email})  ; 
+
+          
+          if(user)
+          {
+          return res.status(400).send(" user already exist ") ; 
+          } 
+
+           let userdata = new User({
+            username  ,
+             email, 
+             password
+           })
+
+  await userdata.save() ;
+
+   res.send(email , password , " Your Account has created Successfully ")
     })
  
 
-  app.use(express.json()) ;
+ 
  
 
 
