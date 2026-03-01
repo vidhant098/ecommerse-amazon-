@@ -1,6 +1,12 @@
-let express = require('express') ; 
+ require('dotenv').config() ; 
+
+
+ let express = require('express') ; 
  let  app= express() ; 
-  
+   
+
+const PORT = process.env.PORT || 4000;
+
 
  let mongoose = require('mongoose') ; 
 const User = require('./user');
@@ -16,13 +22,13 @@ const User = require('./user');
    app.use(express.json()) ;
 
 
-    app.get('/register' ,  async (req , res )=>{ 
+    app.post('/register' ,  async (req , res )=>{ 
 
 
        let { username , email , password } = req.body  ; 
         console.log(username   , email , password ) 
 
-         let  user = await User.findOne({email})  ; 
+         let  user = await User.findOne({email })  ; 
 
           
           if(user)
@@ -42,13 +48,44 @@ const User = require('./user');
     })
  
 
- 
- 
-
-
    
-  app.listen(4000  ,  ()=>
+
+     
+    app.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // 1️⃣ Validation
+    if (!email || !password) {
+      return res.status(400).send("Email and password are required");
+    }
+
+    // 2️⃣ Find user
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).send("User Not Registered");
+    }
+
+    // 3️⃣ Password check
+    if (user.password !== password) {
+      return res.status(401).send("Invalid password");
+    }
+
+    // 4️⃣ ✅ SUCCESS RESPONSE (THIS WAS MISSING)
+    return res.status(200).json({
+      message: "Login successful",
+      email: user.email
+    });
+
+  } catch (error) {
+    return res.status(500).send("Server Error");
+  }
+});
+ 
+   
+  app.listen(PORT  , ()=>
     {
      
-    console.log(" server running in port no 3000 ") ; 
+    console.log(" server running in port no 4000 ") ; 
   })
