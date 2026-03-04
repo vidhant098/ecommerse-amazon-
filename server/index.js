@@ -1,9 +1,9 @@
  require('dotenv').config() ; 
+ let express = require('express') ;  
 
-
- let express = require('express') ; 
+   let bcrypt  = require('bcryptjs')
  let  app= express() ; 
-   
+    
 
 const PORT = process.env.PORT || 4000;
 
@@ -29,27 +29,37 @@ const User = require('./user');
         console.log(username   , email , password ) 
 
          let  user = await User.findOne({email })  ; 
-
+    
           
           if(user)
           {
           return res.status(400).send(" user already exist ") ; 
           } 
+ 
+          let hashpassword  = await bcrypt.hash(password , 10 )
+ 
 
-           let userdata = new User({
-            username  ,
+             let userdata = new User({
+             username  ,
              email, 
-             password
-           })
+             password:   hashpassword
+           })  
+
+        
 
   await userdata.save() ;
 
-   res.send(email , password , " Your Account has created Successfully ")
+      return  res.send( {
+        message:" Account has been  created Successfully " , 
+          email:email   , 
+           pasword :  hashpassword
+      
+      }) 
+
+ 
+    
     })
  
-
-   
-
      
     app.post('/login', async (req, res) => {
   try {
@@ -67,12 +77,11 @@ const User = require('./user');
       return res.status(404).send("User Not Registered");
     }
 
-    // 3️⃣ Password check
+  
     if (user.password !== password) {
       return res.status(401).send("Invalid password");
     }
 
-    // 4️⃣ ✅ SUCCESS RESPONSE (THIS WAS MISSING)
     return res.status(200).json({
       message: "Login successful",
       email: user.email
@@ -83,9 +92,9 @@ const User = require('./user');
   }
 });
  
-   
+
   app.listen(PORT  , ()=>
-    {
-     
-    console.log(" server running in port no 4000 ") ; 
-  })
+    {    
+      console.log(" server running in port no 4000 ") ; 
+    }) 
+
