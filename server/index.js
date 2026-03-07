@@ -3,15 +3,14 @@
 
    let bcrypt  = require('bcryptjs')
  let  app= express() ; 
-    
+       const jwt  = require('jsonwewtoken')
 
 const PORT = process.env.PORT || 4000;
 
 
  let mongoose = require('mongoose') ; 
 const User = require('./user');
-
-
+const { JsonWebTokenError } = require('jsonwebtoken');
 
  mongoose.connect("mongodb://127.0.0.1:27017/5thSem").
   then(()=>{
@@ -55,9 +54,7 @@ const User = require('./user');
            pasword :  hashpassword
       
       }) 
-
- 
-    
+      
     })
  
      
@@ -65,26 +62,40 @@ const User = require('./user');
   try {
     const { email, password } = req.body;
 
-    // 1️⃣ Validation
+    //
     if (!email || !password) {
       return res.status(400).send("Email and password are required");
     }
 
-    // 2️⃣ Find user
+ 
     const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(404).send("User Not Registered");
     }
-
   
-    if (user.password !== password) {
-      return res.status(401).send("Invalid password");
-    }
+
+     isMatch = await  bcrypt.compare(password , user.password)
+  
+     
+     if(!isMatch)
+     {
+       return res.send("invalid password") ; 
+         
+     }
+
+      const token = jwt.sign(
+     {   id: user._id , email:user.email} , 
+     process.env. JWT_SECRET  , 
+     {enpiresIn: "2h"}  
+
+      )
+
 
     return res.status(200).json({
       message: "Login successful",
-      email: user.email
+      email: user.email ,
+      token: token 
     });
 
   } catch (error) {
