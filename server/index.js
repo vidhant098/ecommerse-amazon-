@@ -3,7 +3,7 @@
 
    let bcrypt  = require('bcryptjs')
  let  app= express() ; 
-       const jwt  = require('jsonwewtoken')
+       const jwt  = require('jsonwebtoken')
 
 const PORT = process.env.PORT || 4000;
 
@@ -75,7 +75,7 @@ const { JsonWebTokenError } = require('jsonwebtoken');
     }
   
 
-     isMatch = await  bcrypt.compare(password , user.password)
+    const  isMatch = await  bcrypt.compare(password , user.password)
   
      
      if(!isMatch)
@@ -87,7 +87,7 @@ const { JsonWebTokenError } = require('jsonwebtoken');
       const token = jwt.sign(
      {   id: user._id , email:user.email} , 
      process.env. JWT_SECRET  , 
-     {enpiresIn: "2h"}  
+     {expiresIn: "2h"}  
 
       )
 
@@ -98,9 +98,12 @@ const { JsonWebTokenError } = require('jsonwebtoken');
       token: token 
     });
 
+
   } catch (error) {
     return res.status(500).send("Server Error");
-  }
+  } 
+
+  
 });
  
 
