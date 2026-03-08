@@ -36,12 +36,12 @@ const { JsonWebTokenError } = require('jsonwebtoken');
           } 
  
           let hashpassword  = await bcrypt.hash(password , 10 )
- 
+   
 
              let userdata = new User({
-             username  ,
-             email, 
-             password:   hashpassword
+               username  ,
+               email, 
+               password:   hashpassword
            })  
 
         
@@ -49,8 +49,8 @@ const { JsonWebTokenError } = require('jsonwebtoken');
   await userdata.save() ;
 
       return  res.send( {
-        message:" Account has been  created Successfully " , 
-          email:email   , 
+           message:" Account has been  created Successfully " , 
+           email:email   , 
            pasword :  hashpassword
       
       }) 
@@ -105,7 +105,6 @@ const { JsonWebTokenError } = require('jsonwebtoken');
 
   
 });
- 
 
   app.listen(PORT  , ()=>
     {    
