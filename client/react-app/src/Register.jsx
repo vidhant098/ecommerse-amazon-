@@ -1,24 +1,23 @@
 import React from 'react'
 import { useState } from 'react'
-
+ import axios from "axios"
 const Register = () =>  
   {
-const [Email ,   setEmail]=useState("") 
+const [email ,   setEmail]=useState("") 
 
-const [user  , setUser] =useState("") 
+const [username  , setUsername] =useState("") 
 const [password , setpassword]=useState("") 
   
 
  const   handleRegister =  async ( e )=>{  
       
-e.preventdefault()  ;  
-
+e.preventDefault()
  try{
 
-    const reaponse = await   axios.post("http://localhost:4000/register" ,
+    const response= await   axios.post("http://localhost:4000/register" ,
          {
              username:username  , 
-             email:email  , 
+             email :email  , 
               password :password    
             
             });  
@@ -27,17 +26,13 @@ e.preventdefault()  ;
 
 
 
- }catch(error )
+ }  catch(error )
  {
-     console.log(error.responce.data)
+     console.log(error.response.data)
  }
 
 
  }
-
-
- 
-
 
   return (
     <div>
@@ -48,7 +43,7 @@ e.preventdefault()  ;
 
         <input
           type="text"
-          placeholder="Username"
+          placeholder="user"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -68,12 +63,13 @@ e.preventdefault()  ;
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setpassword(e.target.value)}
         />
 
         <br /><br />
 
-        <button type="submit">Register</button>
+
+        <button type="submit">Submit</button>
 
       </form>
 

@@ -1,6 +1,10 @@
  require('dotenv').config() ; 
  let express = require('express') ;  
 
+ const cors = require("cors")
+
+
+
    let bcrypt  = require('bcryptjs')
  let  app= express() ; 
        const jwt  = require('jsonwebtoken')
@@ -20,7 +24,7 @@ const { JsonWebTokenError } = require('jsonwebtoken');
   
    app.use(express.json()) ;
 
-
+   app.use(cors())
     app.post('/register' ,  async (req , res )=>{ 
 
 
