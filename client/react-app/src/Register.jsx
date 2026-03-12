@@ -1,81 +1,111 @@
-import React from 'react'
-import { useState } from 'react'
- import axios from "axios"
-const Register = () =>  
-  {
-const [email ,   setEmail]=useState("") 
+import React, { useState } from "react";
+import axios from "axios";
 
-const [username  , setUsername] =useState("") 
-const [password , setpassword]=useState("") 
-  
+const Register = () => {
 
- const   handleRegister =  async ( e )=>{  
-      
-e.preventDefault()
- try{
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    const response= await   axios.post("http://localhost:4000/register" ,
-         {
-             username:username  , 
-             email :email  , 
-              password :password    
-            
-            });  
+  const handleRegister = async (e) => {
 
-             alert("axxount created successfully ")
+    e.preventDefault();
 
+    try {
 
+      const response = await axios.post(
+        "http://localhost:4000/register",
+        {
+          username: username,
+          email: email,
+          password: password
+        }
+      );
 
- }  catch(error )
- {
-     console.log(error.response.data)
- }
+      alert("Account created successfully");
 
+      // clear form
+      setUsername("");
+      setEmail("");
+      setPassword("");
 
- }
+    } catch (error) {
+      console.log(error.response?.data);
+    }
+  };
 
   return (
-    <div>
 
-    <h2>Register</h2>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
 
-      <form onSubmit={handleRegister}>
+      {/* Form Box */}
+      <div className="bg-white p-10 rounded-md shadow-lg w-full max-w-lg border">
 
-        <input
-          type="text"
-          placeholder="user"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <h2 className="text-3xl font-semibold mb-8 text-center">
+          Create Account
+        </h2>
 
-        <br /><br />
+        <form onSubmit={handleRegister} className="space-y-5">
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          {/* Username */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Username
+            </label>
 
-        <br /><br />
+            <input
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full h-12 border px-4 text-lg rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
+          </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setpassword(e.target.value)}
-        />
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Email
+            </label>
 
-        <br /><br />
+            <input
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full h-12 border px-4 text-lg rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
+          </div>
 
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Password
+            </label>
 
-        <button type="submit">Submit</button>
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full h-12 border px-4 text-lg rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
+          </div>
 
-      </form>
+          {/* Button */}
+          <button
+            type="submit"
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 text-lg rounded"
+          >
+            Create your account
+          </button>
 
+        </form>
+
+      </div>
 
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
