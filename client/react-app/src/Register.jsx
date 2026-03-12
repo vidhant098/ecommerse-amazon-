@@ -42,7 +42,7 @@ const Register = () => {
       <div className="bg-white p-10 rounded-md shadow-lg w-full max-w-lg border">
 
         <h2 className="text-3xl font-semibold mb-8 text-center">
-          Create Account
+        Register Hare 
         </h2>
 
         <form onSubmit={handleRegister} className="space-y-5">
@@ -93,7 +93,7 @@ const Register = () => {
           </div>
 
           {/* Button */}
-          <button
+          <button  onClick={handleRegister}
             type="submit"
             className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 text-lg rounded"
           >
