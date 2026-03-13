@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "axios"; 
+
+ 
 
 const Register = () => {
 
@@ -101,9 +103,12 @@ const Register = () => {
           </button>
 
         </form>
-
+   <Link to={'/'}>  <button className="w-full mt-4 bg-gray-300 hover:bg-gray-400 text-black font-semibold py-3 text-lg rounded">
+            Back to Home
+          </button></Link>  
       </div>
-
+  <p>already have account </p> 
+  <Link    to={'/Login'}>  <button>login hare </button></Link>
     </div>
   );
 };
