@@ -83,8 +83,8 @@ const Login = () => {
 
    
         <p className="text-center mt-6">
-          Don't have an account?
-        </p>
+          Don't Have An account?
+        </p>  
 
         <Link to="/Register">
           <button className="w-full mt-3 bg-gray-300 hover:bg-gray-400 text-black font-semibold py-3 text-lg rounded">
