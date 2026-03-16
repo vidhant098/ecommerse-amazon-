@@ -4,7 +4,9 @@ import './index.css'
 import App from './App.jsx'
 import Home from './Home.jsx' 
 import Login from './Login.jsx'
-import Register from './Register.jsx'
+import Register from './Register.jsx' 
+import Navbar from './Navbar.jsx'
+
   
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 createRoot(document.getElementById('root')).render(
@@ -13,7 +15,8 @@ createRoot(document.getElementById('root')).render(
            <Routes>
               <Route  path='/' element={<Home />}/>
               <Route  path='/Login' element={<Login />}/>
-              <Route  path='/Register' element={<Register />}/>
+              <Route  path='/Register' element={<Register />}/> 
+              <Route path='/Navbar' element={<Navbar />}/>
         
            </Routes>
       </BrowserRouter>

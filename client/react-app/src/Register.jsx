@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios"; 
 import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
  
 
@@ -39,9 +40,12 @@ const Register = () => {
 
   return (
 
+    
+
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
 
-      {/* Form Box */}
+      {/* Form Box */} 
+    
       <div className="bg-white p-10 rounded-md shadow-lg w-full max-w-lg border">
 
         <h2 className="text-3xl font-semibold mb-8 text-center">

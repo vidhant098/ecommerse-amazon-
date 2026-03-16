@@ -6,8 +6,9 @@ import Navbar from './pages/Navbar'
 const App = () => {
   return (
     <div>
-<Navbar/>
-<Home/>
+ <Navbar/>
+ <Home/>
+  
 
 
   
